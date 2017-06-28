@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="lib/angular.min.js"></script>
+		<script src="lib/jquery-1.11.0.js"></script>
+		<style>
+			ul{
+				border: 1px solid #333;height: 40px;white-space: nowrap;overflow-x: auto; 
+				-webkit-padding-start: 0px;
+			}
+			ul::-webkit-scrollbar {
+                display: none;
+            }
+			ul li{
+				list-style: none; padding: 0 10px; display: inline; height: 100%; line-height: 40px;
+			}
+		</style>
+	</head>
+	<body>
+		<div ng-controller="ctrl">
+			<ul>
+				<li ng-repeat="item in list">{{item.className}}</li>
+			</ul>
+		</div>
+	</body>
+	<script>
+		var app = angular.module("myApp",[]);
+		app.controller("ctrl",function($scope){
+			$scope.list = [];
+			$.ajax({
+				type:"get",
+				url:"http://datainfo.duapp.com/shopdata/getclass.php",
+				async:true,
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+					$scope.list = data;
+					$scope.$apply();
+				}
+			});
+		})
+	</script>
+</html>

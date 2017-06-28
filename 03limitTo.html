@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="lib/angular.min.js"></script>
+	</head>
+	<body>
+		<div ng-controller="ctrl">
+			<select ng-model="num" ng-change="changeNum()">
+				<option value="2">2</option>
+				<option value="4">4</option>
+				<option value="6">6</option>
+			</select>
+			<select ng-model="page">
+				<option ng-repeat="item in list" value={{item}}>第{{item+1}}页</option>
+			</select>
+			<ul>
+				<li ng-repeat="item in users | limitTo:num:page*1*num">{{$index}}------{{item.name | lowercase}}今年{{item.age | number:2}}岁，是一个{{item.sex}}的，电话号是{{item.tel}}，生日是{{item.birthday | date:"yyyy-MM--dd"}}-----工资是{{item.money | currency:"￥"}}</li>
+			</ul>
+		</div>
+	</body>
+	<script>
+		var app = angular.module("myApp",[]);
+		app.controller("ctrl",function($scope){
+			$scope.num = "2";
+			$scope.page = "0";						
+			$scope.users = [{
+				name:"qQy1",
+				age:18,
+				sex:"男",
+				tel:15800864754,
+				money:2000,
+				birthday:new Date()
+			},{
+				name:"qQy2",
+				age:28,
+				sex:"女",
+				tel:15800864754,
+				money:1000,
+				birthday:new Date()
+			},{
+				name:"qQy3",
+				age:18,
+				sex:"男",
+				tel:15800864754,
+				money:2000,
+				birthday:new Date()
+			},{
+				name:"qQy4",
+				age:28,
+				sex:"女",
+				tel:15800864754,
+				money:1000,
+				birthday:new Date()
+			},{
+				name:"qQy5",
+				age:18,
+				sex:"男",
+				tel:15800864754,
+				money:2000,
+				birthday:new Date()
+			},{
+				name:"qQy6",
+				age:18,
+				sex:"男",
+				tel:15800864754,
+				money:2000,
+				birthday:new Date()
+			},{
+				name:"qQy7",
+				age:18,
+				sex:"男",
+				tel:15800864754,
+				money:2000,
+				birthday:new Date()
+			},{
+				name:"qQy8",
+				age:18,
+				sex:"男",
+				tel:15800864754,
+				money:2000,
+				birthday:new Date()
+			}];
+			$scope.len = $scope.users.length;
+			$scope.pageCode = function(){
+				var page = Math.ceil($scope.len/$scope.num);
+				var arr = [];
+				for(var i = 0; i < page; i++){
+					arr.push(i);
+				}
+				$scope.list = arr;
+			};
+			$scope.pageCode();
+			$scope.changeNum = function(){
+				$scope.pageCode();
+				$scope.page = "0";		
+			};
+		})
+	</script>
+</html>
